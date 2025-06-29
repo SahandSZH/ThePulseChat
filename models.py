@@ -39,7 +39,7 @@ class GameScore(Base):
     __tablename__ = "game_scores"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    group_id = Column(Integer, ForeignKey("groups.id"), nullable=False)
+    group_id = Column(Integer, ForeignKey("group_chats.id"), nullable=False)
     game_name = Column(String, nullable=False)
     score = Column(Integer, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
