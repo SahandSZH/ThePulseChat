@@ -5,11 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex="https://.*\.lovable\.app",
+    allow_origin_regex=r"https://.*\.lovable(project)?\.app|https://.*\.lovableproject\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 Base.metadata.create_all(bind=engine)
 
