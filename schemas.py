@@ -49,14 +49,14 @@ class MessageOut(BaseModel):
         orm_mode = True
 
 class GameScoreCreate(BaseModel):
-    user_id: int
-    group_id: int
+    username: str
+    group_name: str
     game_name: str
     score: int
 
 
 class GameScoreOut(BaseModel):
-    user_id: int
+    username: str
     score: int
     timestamp: datetime
 
