@@ -93,17 +93,28 @@ def messages_by_group(db: Session, group_id: int):
 
     return result
 
-def submit_game_score(db: Session, game: schemas.GameScoreCreate):
+def submit_game_score(db: Session, game: GameScoreCreate):
+    user = get_user_by_username(db, game.username)
+    group = get_group_by_name(db, game.group_name)
+    if not user or not group:
+        raise HTTPException(status_code=404, detail="User or Group not found")
+
     db_score = GameScore(
-        user_id=game.user_id,
-        group_id=game.group_id,
+        user_id=user.id,
+        group_id=group.id,
         game_name=game.game_name,
         score=game.score
     )
     db.add(db_score)
     db.commit()
     db.refresh(db_score)
-    return db_score
+
+    return {
+        "username": user.username,
+        "score": db_score.score,
+        "timestamp": db_score.timestamp
+    }
+
 
 def get_leaderboard_by_group(db: Session, group_id: int, game_name: str):
     return (
