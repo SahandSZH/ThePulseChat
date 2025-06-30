@@ -7,6 +7,7 @@ from schemas import UserCreate
 from models import Membership
 from models import Message
 from fastapi import HTTPException
+from schemas import GameScoreCreate
 
 
 def get_group_by_name(db: Session, name: str):
