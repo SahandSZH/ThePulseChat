@@ -72,3 +72,12 @@ def submit_score(game: schemas.GameScoreCreate, db: Session = Depends(get_db)):
 @router.get("/leaderboard/{group_id}/{game_name}", response_model=list[schemas.GameScoreOut])
 def get_leaderboard(group_id: int, game_name: str, db: Session = Depends(get_db)):
     return crud.get_leaderboard_by_group(db=db, group_id=group_id, game_name=game_name)
+
+
+
+@router.get("/user/{username}", response_model=schemas.UserOut)
+def get_user_by_username_endpoint(username: str, db: Session = Depends(get_db)):
+    user = crud.get_user_by_username(db, username)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
