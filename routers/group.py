@@ -81,3 +81,11 @@ def get_user_by_username_endpoint(username: str, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@router.post("/login")
+def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_username(db, user.username)
+    if not db_user or db_user.password != user.password:
+        raise HTTPException(status_code=403, detail="Invalid username or password")
+    return {"message": "Login successful", "username": user.username}
+
