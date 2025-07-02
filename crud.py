@@ -118,10 +118,21 @@ def submit_game_score(db: Session, game: GameScoreCreate):
 
 
 def get_leaderboard_by_group(db: Session, group_id: int, game_name: str):
-    return (
+    scores = (
         db.query(GameScore)
         .filter(GameScore.group_id == group_id, GameScore.game_name == game_name)
         .order_by(GameScore.score.desc())
         .limit(10)
         .all()
     )
+
+    result = []
+    for s in scores:
+        user = db.query(User).filter(User.id == s.user_id).first()
+        result.append({
+            "username": user.username,
+            "score": s.score,
+            "timestamp": s.timestamp
+        })
+
+    return result
