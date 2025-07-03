@@ -133,7 +133,7 @@ def get_leaderboard_by_group(db: Session, group_id: int, game_name: str):
         db.query(GameScore)
         .filter(GameScore.group_id == group_id, GameScore.game_name == game_name)
         .order_by(GameScore.score.desc())
-        .limit(10)
+        .limit(5)
         .all()
     )
 
