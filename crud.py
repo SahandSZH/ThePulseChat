@@ -72,20 +72,30 @@ def create_message(db: Session, message: schemas.MessageCreate):
     return new_message
 
 def messages_by_group(db: Session, group_id: int):
-    messages = db.query(Message).filter(Message.group_id == group_id).order_by(Message.timestamp.asc()).all()
+    messages = (
+        db.query(Message)
+        .filter(Message.group_id == group_id)
+        .order_by(Message.timestamp.asc())
+        .all()
+    )
 
     result = []
     for msg in messages:
+        # Get reply text if needed
         reply_text = None
         if msg.reply_to_id:
             replied_msg = db.query(Message).filter(Message.id == msg.reply_to_id).first()
             if replied_msg:
                 reply_text = replied_msg.text
 
+        
+        user = db.query(User).filter(User.id == msg.sender_id).first()
+        sender_username = user.username if user else "Unknown"
+
         result.append({
             "id": msg.id,
             "group_id": msg.group_id,
-            "sender_id": msg.sender_id,
+            "sender_username": sender_username,  # ✅ send username instead of sender_id
             "text": msg.text,
             "timestamp": msg.timestamp,
             "reply_to_id": msg.reply_to_id,
@@ -93,6 +103,7 @@ def messages_by_group(db: Session, group_id: int):
         })
 
     return result
+
 
 def submit_game_score(db: Session, game: GameScoreCreate):
     user = get_user_by_username(db, game.username)
