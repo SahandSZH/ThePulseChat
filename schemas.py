@@ -39,14 +39,15 @@ class MessageCreate(BaseModel):
 class MessageOut(BaseModel):
     id: int
     group_id: int
-    sender_id: int
+    sender_username: str
     text: str
     timestamp: datetime
     reply_to_id: Optional[int]
-    reply_to_text: Optional[str] = None
+    reply_to_text: Optional[str]=None
 
     class Config:
         orm_mode = True
+
 
 class GameScoreCreate(BaseModel):
     username: str
