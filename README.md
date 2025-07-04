@@ -16,3 +16,6 @@ An open-source group chat app with built-in games and leaderboards — built usi
 - **Frontend:** Lovable (AI UI)
 - **Hosting:** Render Web Services
 - **Language:** Python
+
+---
+https://thepulsechat-social.lovable.app/
