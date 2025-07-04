@@ -12,7 +12,7 @@ An open-source group chat app with built-in games and leaderboards — built usi
 ---
 
 - **Backend:** FastAPI + SQLAlchemy
-- **Database:** PostgreSQL (hosted on Render)
+- **Database:** PostgreSQL
 - **Frontend:** Lovable (AI UI)
 - **Hosting:** Render Web Services
 - **Language:** Python
