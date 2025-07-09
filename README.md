@@ -1,4 +1,4 @@
-An open-source group chat app with built-in games and leaderboards — built using FastAPI and PostgreSQL, with frontend powered by Lovable.
+An open-source group chat app with built in games and leaderboards built using FastAPI and PostgreSQL, with frontend powered by Lovable.
 
 ---
 
